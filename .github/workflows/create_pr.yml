@@ -1,0 +1,20 @@
+on:
+  create
+jobs:
+  createPullRequest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: get file
+        run: |
+          curl -o analysis.Rmd https://raw.githubusercontent.com/jbourak/worksheet-vers-ctrl-src/main/analysis.Rmd
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: add code for data reading and wrangling
+          title: add code for data reading and wrangling
+          base: main
+          branch: read_data
